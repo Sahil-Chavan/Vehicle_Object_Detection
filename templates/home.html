@@ -1,0 +1,87 @@
+{% extends 'layout.html'%}
+{%block content %}
+
+<div class="container-fluid uppercon">
+    <div class="box">
+        <h1 class="display-1 text-center tit">Vehicle Object Detection</h1>
+        <h3 class="text-end"> - By Sahil S Chavan </h3>
+    </div>
+</div>
+
+
+
+
+<div class="container-fluid belowcon">
+    <div class="row align-items-center">
+        <div class="col-6 leftcol">
+            <div class="box">
+                <h1 class="display-6">
+                    Why Vehicle Object Detection?
+                </h1>
+                <p class="lh-lg">
+                    Vehicle detection and tracking applications play an important role for civilian and military
+                    applications
+                    such as in highway traffic surveillance control, management and urban traffic planning. Vehicle
+                    detection
+                    process on road are used for vehicle tracking, counts, average speed of each individual vehicle,
+                    traffic
+                    analysis and vehicle categorizing objectives and may be implemented under different environments
+                    changes.
+                    In this review, we present a concise overview of image processing methods and analysis tools which
+                    used in
+                    building these previous mentioned applications that involved developing traffic surveillance systems
+                </p>
+            </div>
+        </div>
+
+
+
+
+        <div class="col-6">
+            <div class="predictioncon text-center box">
+                <h1 class="display-6 text-right">Prediction</h1>
+                <div class="hover14 text-center">
+                    <figure>
+                        <img id="output" class="rounded predimg"
+                        {% if filename %}
+                            src="{{ url_for('static', filename=filename) }}"
+                        {% else %}
+                            src="{{ url_for('static',filename='predictions/demo.png') }}"
+                        {% endif %}
+                        />
+                    </figure>
+                </div>
+                <form action="/" method="post" enctype="multipart/form-data">
+                    <div class="row  align-items-top">
+                        <div class="col-9">
+                            <div class="input-group-lg mb-3">
+                                <input type="file" name="imag" class="form-control inpt" id="inputGroupFile01"
+                                    onchange="loadFile(event)" required />
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <button class="btn-1" type="submit" value="Submit"><span>Make Prediction</span></button>
+                        </div>
+                    </div>
+                </form>
+                <div class="row">
+                    {% with messages = get_flashed_messages() %}
+                      {% if messages %}
+                        {% for message in messages %}
+                        <div class="alert alert-secondary" role="alert">
+                            <h4>{{ message }}</h4>
+                          </div>
+                        {% endfor %}
+                      {% endif %}
+                    {% endwith %}
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{%endblock content%}
+

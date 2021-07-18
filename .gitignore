@@ -1,0 +1,8 @@
+annotations/test.record
+annotations/train.record
+images
+my_model
+pre-trained-models
+exported-models/my_ssd_mobilenet_v2_320x320/checkpoint
+exported-models/my_ssd_mobilenet_v2_320x320/saved_model/assets
+exported-models/my_ssd_mobilenet_v2_320x320/saved_model/variables
