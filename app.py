@@ -1,7 +1,8 @@
 import cv2
+import base64
 import numpy as np
 import matplotlib.pyplot as plt
-from flask import Flask, render_template,flash,request,redirect,url_for
+from flask import Flask, render_template,flash,request,redirect,url_for,jsonify
 from functions import load_model,show_inference
 
 app = Flask(__name__)
@@ -53,8 +54,18 @@ def predict():
     else:
         return redirect(url_for('home'))
 
-# @app.route('/display/<filename>')
-# def display_image(filename):
+@app.route('/api',methods=['POST'])
+def api():
+    img = request.files['imag']
+    filestr = img.read()
+    npimg = np.frombuffer(filestr, np.uint8)
+    img_vec = cv2.imdecode(npimg, cv2.COLOR_BGR2RGB)
+    pred_img = show_inference(capp.model,img_vec)
+    pre_img_fname = 'static/predictions/prediction.jpg'
+    cv2.imwrite(pre_img_fname,pred_img)
+    with open(pre_img_fname, "rb") as f:
+        b64_img = base64.b64encode(f.read())
+    return jsonify({"image" : b64_img.decode('utf-8')})
 
 
     # return 'inside predict'
